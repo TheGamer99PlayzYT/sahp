@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SAHP FTO Report Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    h2, h3 {
+      color: #1f4e79;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 4px;
+    }
+
+    .section {
+      background: #fff;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-left: 5px solid #1f4e79;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 6px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .check-item {
+      margin-bottom: 8px;
+    }
+
+    .check-item input {
+      margin-right: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-top: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      border: 1px solid #aaa;
+      background-color: #fefefe;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #1f4e79;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #174066;
+    }
+
+    #counter {
+      font-weight: bold;
+      color: #1f4e79;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🚨 SAHP FTO Report Generator</h2>
+
+  <div class="section">
+    <h3>👮‍♂️ FTO Information</h3>
+    <label>FTO Name:</label>
+    <input type="text" id="ftoName" value="L. Miller">
+    <label>FTO Rank:</label>
+    <input type="text" id="ftoRank" value="Master Sergeant">
+    <label>FTO Position:</label>
+    <input type="text" id="ftoPos" value="FTO">
+    <label>FTO Division:</label>
+    <input type="text" id="ftoDiv" value="SAHP">
+    <label>FTO Notes:</label>
+    <input type="text" id="ftoNotes" value="">
+  </div>
+
+  <div class="section">
+    <h3>🚓 R/A Information</h3>
+    <label>R/A Name:</label>
+    <input type="text" id="raName" value="@hyperbrust">
+    <label>R/A Rank:</label>
+    <input type="text" id="raRank" value="Probationary Trooper">
+  </div>
+
+  <div class="section">
+    <h3>📋 FTO Checklist</h3>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Appearance / uniform"> Appearance / Uniform</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Vehicle Appearance"> Vehicle Appearance</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Equipment / Firearms"> Equipment / Firearms</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Driving"> Driving</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Radio etiquette"> Radio Etiquette</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="EVOC"> EVOC</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="PIT maneuver"> PIT Maneuver</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Understanding and Identifying a 71"> Understanding and Identifying a 71</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Radio codes"> Radio Codes</div>
+    <div class="check-item"><input type="checkbox" class="chk" data-label="Perform a routine TS"> Perform a Routine TS</div>
+  </div>
+
+  <button onclick="generateReport()">✅ Generate Report</button>
+  <div id="counter">Reports Generated: 0</div>
+
+  <h3>📝 Generated Report</h3>
+  <textarea id="output" readonly></textarea>
+
+  <script>
+    let ftoReportCount = localStorage.getItem('ftoReportCount') || 0;
+    document.getElementById('counter').innerText = `Reports Generated: ${ftoReportCount}`;
+
+    function mark(val) {
+      return val ? '[V]' : '[X]';
+    }
+
+    function generateReport() {
+      const checkboxes = document.querySelectorAll('.chk');
+      let checklistText = '';
+      let positives = 0, negatives = 0;
+
+      checkboxes.forEach(cb => {
+        const isChecked = cb.checked;
+        const label = cb.getAttribute('data-label');
+        const result = mark(isChecked);
+        checklistText += `***${label}:*** ${result}\n`;
+        if (isChecked) positives++; else negatives++;
+      });
+
+      const report = `
+# :SAHP_logo: San Andreas Highway Patrol **FTO R/A #1 CHECKLIST**:SAHP_logo:
+
+***-FTO INFORMATION-***
+
+***FTO NAME:*** \`${document.getElementById("ftoName").value}\`
+***FTO RANK:*** \`${document.getElementById("ftoRank").value}\`
+***FTO POSITION:*** \`${document.getElementById("ftoPos").value}\`
+***FTO MAIN DIV:*** \`${document.getElementById("ftoDiv").value}\`
+***FTO NOTES:*** \`${document.getElementById("ftoNotes").value}\`
+
+***-R/A INFORMATION-***
+
+***R/As Name:*** ${document.getElementById("raName").value}  
+***R/As Rank:*** \`${document.getElementById("raRank").value}\`
+***R/As Positive tally's:*** \`${positives}\`
+***R/As Negative tally's:*** \`${negatives} \`
+
+***-FTO CHECKLIST SECTION-***
+
+***FTOS / RECRUITS NOTE THE FOLLOWING:*** **[X] = Negative mark / Fail**   **[V] = Positive Mark / Pass**
+
+${checklistText.trim()}
+
+***Signed by: @imafreakingstick***  
+***Field Training Officer, ${document.getElementById("ftoName").value}***  
+***San Andreas Highway Patrol (SAHP)***  
+***Professional Standards Office***
+      `;
+
+      document.getElementById("output").value = report.trim();
+      ftoReportCount++;
+      localStorage.setItem('ftoReportCount', ftoReportCount);
+      document.getElementById('counter').innerText = `Reports Generated: ${ftoReportCount}`;
+    }
+  </script>
+
+</body>
+</html>

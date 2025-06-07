@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SAHP Report Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1f4e79;
+      margin-bottom: 30px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .report-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .report-button {
+      background-color: #1f4e79;
+      color: white;
+      padding: 20px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      min-width: 200px;
+    }
+
+    .report-button:hover {
+      background-color: #174066;
+      transform: translateY(-2px);
+    }
+
+    .counter {
+      margin-top: 8px;
+      font-weight: bold;
+      color: #1f4e79;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚨 SAHP Report Dashboard</h1>
+
+  <div class="button-container">
+    <div class="report-box">
+      <button class="report-button" onclick="location.href='ftotest.html'">FTO Checklist Report</button>
+      <div class="counter" id="ftoCount">Generated: 0</div>
+    </div>
+
+    <div class="report-box">
+      <button class="report-button" onclick="location.href='ticketreport.html'">Ticket Report</button>
+      <div class="counter" id="ticketCount">Generated: 0</div>
+    </div>
+
+    <div class="report-box">
+      <button class="report-button" onclick="location.href='arrestreport.html'">Arrest Report</button>
+      <div class="counter" id="arrestCount">Generated: 0</div>
+    </div>
+
+    <div class="report-box">
+      <button class="report-button" onclick="location.href='oisreport.html'">OIS Report</button>
+      <div class="counter" id="oisCount">Generated: 0</div>
+    </div>
+  </div>
+
+  <footer>
+    San Andreas Highway Patrol &copy; 2025 — Report Utility Dashboard
+  </footer>
+
+  <script>
+    // Load counters from localStorage
+    document.getElementById("ftoCount").innerText = `Generated: ${localStorage.getItem("ftoReportCount") || 0}`;
+    document.getElementById("ticketCount").innerText = `Generated: ${localStorage.getItem("citationReportCount") || 0}`;
+    document.getElementById("arrestCount").innerText = `Generated: ${localStorage.getItem("arrestReportCount") || 0}`;
+    document.getElementById("oisCount").innerText = `Generated: ${localStorage.getItem("oisReportCount") || 0}`;
+  </script>
+
+</body>
+</html>
