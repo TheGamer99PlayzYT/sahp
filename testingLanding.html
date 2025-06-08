@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Landing Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: url('background.avif') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px 60px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .container h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .btn {
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+    }
+
+    .footer-box {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Select a Page</h1>
+    <button class="btn" onclick="location.href='dashboard.html'">Reports</button>
+    <button class="btn" onclick="location.href='page2.html'">Open Page 2</button>
+    <button class="btn" onclick="location.href='page3.html'">Open Page 3</button>
+  </div>
+
+  <div class="footer-box">
+    MSGT. L. Miller (1K-71)
+  </div>
+</body>
+</html>
